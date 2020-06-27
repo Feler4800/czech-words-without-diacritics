@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Česká slova bez diakritiky</title>
+
+	<script>
+		function analyzovat() {
+			let text = textA.value;
+			let slova = text.split(" ");
+			slova = slova.filter(slovo=>slovo != "");
+			let nova_slova = [];
+
+			jePlatne = slovo => {
+				let znaky = "áčďéěíňóřšťúůýžÁČĎÉĚÍŇÓŘŠŤÚŮÝŽ";
+				for(let i = 0; i < znaky.length; i++) {
+					if(slovo.includes(znaky[i])) {
+						return false;
+					}
+				}
+				return true;
+			}
+
+
+			for (slovo of slova) {
+				if(jePlatne(slovo))
+					nova_slova.push(slovo);
+
+			}
+			let novy_text = nova_slova.join(" ");
+			alert(`Původní počet slov: ${slova.length}\nNový počet slov: ${nova_slova.length}\nZůstalo ${(nova_slova.length / slova.length * 100).toFixed(2)}% slov `)
+			textA.value = novy_text;
+		}
+
+
+
+
+
+	</script>
+
+</head>
+<body>
+	<textarea id="textA" rows="40" cols="100"> </textarea>
+	<br>
+	<button onclick="analyzovat()">Analyzovat a nahradit</button> 
+</body>
+</html>
